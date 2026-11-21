@@ -1,0 +1,129 @@
+{
+  "app": {
+    "name": "Live Radio",
+    "version": "1.0.0",
+    "target": "Raspberry Pi OS, arm64, .deb package",
+    "source": {
+      "package": "com.clearchannel.iheartradio.controller",
+      "version": "10.67.1",
+      "runtime": "Java/Kotlin DEX"
+    }
+  },
+  "catalogue": {
+    "api_host": "us.api.iheart.com",
+    "api_base": "/api/v2/content",
+    "genres_endpoint": "/api/v2/content/genre",
+    "stations_endpoint": "/api/v2/content/liveStations",
+    "genre_count_observed": 45,
+    "station_count_observed": 10532,
+    "bootstrap_limit": 240,
+    "genre_limit": 60,
+    "working_query_parameters": ["genreId", "limit", "offset"],
+    "ignored_query_parameters": ["page", "start", "skip", "from", "index", "name", "keyword", "title"],
+    "fields_used": ["id", "name", "callLetters", "description", "freq", "streams", "markets", "genres", "cume"],
+    "provenance": "host/prefix from DEX strings; parameters and counts verified against the live service"
+  },
+  "streams": {
+    "declared_stream_keys": [
+      "pivot_hls_stream",
+      "secure_hls_stream",
+      "hls_stream",
+      "secure_shoutcast_stream",
+      "shoutcast_stream",
+      "secure_pls_stream",
+      "pls_stream"
+    ],
+    "reader_preference": ["hls", "shoutcast", "pls", "pivot"],
+    "port_preference": ["secure_hls_stream", "hls_stream", "secure_shoutcast_stream", "shoutcast_stream"],
+    "hls_variant_bandwidth_bps": 24000,
+    "hls_segment_seconds": 10,
+    "shoutcast_bitrate_kbps": 48,
+    "shoutcast_sample_rate_hz": 48000,
+    "icy_metaint_bytes": 16000,
+    "requires_account": false,
+    "provenance": "key order read from LiveStationReader and LiveStationStreamType; measured on station 577"
+  },
+  "playback": {
+    "engine": "mpv child process",
+    "mpv_arguments": ["--no-video", "--no-terminal", "--really-quiet", "--cache=yes", "--cache-secs=8", "--volume=<0-100>"],
+    "pause_volume_transport": "mpv JSON IPC over a Unix socket on Linux; stop/restart fallback elsewhere",
+    "seek": false,
+    "seek_reason": "live streams have no seek bar in the original",
+    "provenance": "port choice; mpv selected to avoid linking ALSA/PipeWire and FFmpeg"
+  },
+  "metadata": {
+    "primary_source": "HLS media playlist EXTINF title/artist attributes",
+    "fallback_source": "ICY StreamTitle on the progressive stream",
+    "stream_title_shape": "- text=\"<readable>\" song_spot=\"...\" spotInstanceId=\"...\"",
+    "recently_played_ttl_ms": 300000,
+    "recently_played_ttl_hex": "0x493e0",
+    "recently_played_ttl_source": "LiveStationRecentlyPlayedViewModel.refreshIfNeeded",
+    "now_playing_poll_seconds": 30,
+    "now_playing_poll_provenance": "port choice; no player-bar interval was recovered from the APK",
+    "rejected_endpoint": "/api/v3/live-meta/stream/{id}/currentTrackMeta",
+    "rejected_endpoint_result": "HTTP 410/400 during testing"
+  },
+  "interface": {
+    "colors": {
+      "background": "#262626",
+      "card": "#2E2E2E",
+      "red_600": "#C6002B",
+      "red_550": "#CC032E"
+    },
+    "color_provenance": "APK resources.arsc",
+    "nav_labels_in_source": ["Home", "Radio", "Library", "Search", "Genres", "Favorites", "Live Station"],
+    "port_nav": ["Home", "Radio", "Favorites", "Search"],
+    "window_default": [1180, 780],
+    "rail_width_px": 92,
+    "player_bar_height_px": 90,
+    "grid_columns_default": 6,
+    "recent_tile_px": 102,
+    "dimensions_provenance": "estimated for a 720p/1080p Raspberry Pi desktop",
+    "artwork": "procedural seed gradient with call sign; no broadcaster assets"
+  },
+  "storage": {
+    "format": "JSON",
+    "linux_path": "$XDG_CONFIG_HOME/live-radio/state.json",
+    "linux_fallback": "~/.config/live-radio/state.json",
+    "windows_path": "%APPDATA%\\LiveRadio\\state.json",
+    "contents": ["favorites", "recent (max 12)", "volume"],
+    "provenance": "port choice"
+  },
+  "packaging": {
+    "format": "Debian binary package",
+    "architecture": "arm64",
+    "glibc_baseline": "2.28",
+    "dynamic_dependencies_observed": ["libc.so.6", "libm.so.6", "libpthread.so.0", "libdl.so.2"],
+    "package_dependencies": [
+      "mpv",
+      "curl",
+      "libx11-6",
+      "libxcursor1",
+      "libxrandr2",
+      "libxi6",
+      "libxkbcommon0",
+      "libwayland-client0",
+      "libwayland-cursor0",
+      "libwayland-egl1",
+      "libegl1",
+      "libgl1",
+      "libgles2"
+    ],
+    "musl_note": "static musl was compiled but rejected because it cannot dlopen the system GUI libraries",
+    "install_path": "/usr/bin/live-radio",
+    "desktop_file": "/usr/share/applications/live-radio.desktop"
+  },
+  "screenshot_mode": {
+    "argument": "--screenshot <path>",
+    "frames_before_capture": 120,
+    "window_focused": false,
+    "windows_window_level": "always-on-bottom",
+    "purpose": "verification only; audio is not started"
+  },
+  "unknowns": [
+    "No physical Raspberry Pi 4 was available, so installation and audio output were not exercised on the target.",
+    "Stream availability can vary by broadcaster and region.",
+    "The original player-bar refresh interval was not recovered; 30 seconds is a port choice.",
+    "The private live-meta endpoint rejected test requests, so metadata comes from the stream itself."
+  ]
+}

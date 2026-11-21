@@ -1,0 +1,4 @@
+# Keep LF line endings: the packaging files end up on Linux as-is.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary

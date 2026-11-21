@@ -1,0 +1,10 @@
+# Build output
+/target/
+/dist/
+*.deb
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,27 @@
+Package: live-radio
+Version: 1.1.1
+Section: sound
+Priority: optional
+Architecture: arm64
+Maintainer: Live Radio <live-radio@example.invalid>
+Installed-Size: 7200
+Depends: mpv, curl, libc6 (>= 2.28), libx11-6, libx11-xcb1, libxcursor1, libxrandr2, libxi6, libxrender1, libxkbcommon0, libxkbcommon-x11-0, libwayland-client0, libwayland-cursor0, libwayland-egl1, libegl1, libgl1
+Recommends: pipewire | pulseaudio
+Description: Live radio for your Raspberry Pi - no account, one tap to play
+ Live Radio is a lightweight desktop radio player for Raspberry Pi OS.
+ It plays hundreds of live AM and FM stations from across the US in
+ more than 40 genres: Top 40, country, rock, hip-hop, news, sports,
+ Spanish-language and more. No account or sign-in is needed.
+ .
+ Features:
+  - One-tap play with the current song or show title
+  - Browse by genre, or search by name, call sign, city or frequency
+  - Real station logos, cached for instant loading
+  - Favourites and recently played stations
+  - Automatic portrait layout for rotated screens and touchscreens
+  - Full-screen mode (live-radio --fullscreen) for kiosk setups
+  - Volume and mute remembered between sessions; Space to play/pause
+ .
+ Live Radio is an independent player, not affiliated with or endorsed
+ by iHeartMedia. It plays the public live streams stations publish
+ online. Audio playback is handled by mpv.

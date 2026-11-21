@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Live Radio
+GenericName=Radio Player
+Comment=Listen to live online radio stations
+Exec=live-radio
+Icon=live-radio
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+Keywords=radio;stream;music;live;
+StartupNotify=true
+StartupWMClass=live-radio

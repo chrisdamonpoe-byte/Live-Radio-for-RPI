@@ -1,0 +1,10 @@
+Live Radio is an independent desktop player. It is not affiliated with,
+endorsed by, or supplied by iHeartMedia. Station names, call signs and
+streams belong to their respective broadcasters. Artwork in this app is
+generated procedurally; no broadcaster logos or photographs are included.
+
+The application code is provided under the MIT licence.
+
+Uses the public station endpoints at us.api.iheart.com and plays the
+public streams hosted by revma.ihrhls.com. Availability depends on the
+broadcaster and on your region.
