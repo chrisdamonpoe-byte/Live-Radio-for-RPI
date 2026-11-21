@@ -228,6 +228,9 @@ impl App {
                 if fresh.cume > 0 {
                     old.cume = fresh.cume;
                 }
+                if !fresh.logo.is_empty() {
+                    old.logo = fresh.logo;
+                }
             } else {
                 self.index.insert(fresh.id, self.all.len());
                 self.all_ids.push(fresh.id);
@@ -754,6 +757,7 @@ impl App {
                 Layout::top_down(Align::LEFT),
                 |ui| {
                     egui::ScrollArea::vertical()
+                        .id_salt("radio-genre-list")
                         .auto_shrink([false, false])
                         .show(ui, |ui| {
                             ui.spacing_mut().item_spacing.y = 2.0;
@@ -791,6 +795,7 @@ impl App {
                     });
                     ui.add_space(12.0);
                     egui::ScrollArea::vertical()
+                        .id_salt("radio-station-grid")
                         .auto_shrink([false, false])
                         .show(ui, |ui| {
                             if ids.is_empty() && loading {

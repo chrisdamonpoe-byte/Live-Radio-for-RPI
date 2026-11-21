@@ -64,7 +64,7 @@ try {
     & $xz -9 -f control.tar data.tar
     if ($LASTEXITCODE) { throw "xz failed" }
 
-    $deb = "live-radio_1.1.1_arm64.deb"
+    $deb = "live-radio_1.1.2_arm64.deb"
     if (Test-Path "..\$deb") { Remove-Item "..\$deb" -Force }
     & $ar rc "..\$deb" debian-binary control.tar.xz data.tar.xz
     if ($LASTEXITCODE) { throw "ar failed" }
@@ -72,4 +72,4 @@ try {
     Pop-Location
 }
 
-Write-Host "Built $(Join-Path $dist 'live-radio_1.1.1_arm64.deb')"
+Write-Host "Built $(Join-Path $dist 'live-radio_1.1.2_arm64.deb')"

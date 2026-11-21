@@ -63,7 +63,7 @@ iHeartMedia. It plays the public live streams that stations publish online._
 - **Ctrl+F:** jump to Search
 
 ### On the Pi
-- **Installs with the built-in Package Installer:** double-click the `.deb`, or run `sudo apt install ./live-radio_1.1.1_arm64.deb`
+- **Installs with the built-in Package Installer:** double-click the `.deb`, or run `sudo apt install ./live-radio_1.1.2_arm64.deb`
 - Dependencies (mpv, curl) are pulled in automatically
 - **Runs on Raspberry Pi OS Bookworm and Bullseye** (64-bit, arm64), on X11 or Wayland
 - Adds a **menu entry and icon** under Sound & Video
